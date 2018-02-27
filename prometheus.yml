@@ -1,0 +1,17 @@
+global:
+  scrape_interval:     60s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
+  evaluation_interval: 60s # Evaluate rules every 15 seconds. The default is every 1 minute.
+  external_labels:
+    monitor: 'etcd'
+
+scrape_configs:
+  # Scrape Prometheus itself
+  - job_name: 'etcd'
+    scheme: https
+    tls_config:
+      ca_file: /etc/prometheus/ca.pem 
+      cert_file: /etc/prometheus/cert.pem
+      key_file: /etc/prometheus/key.pem
+      insecure_skip_verify: true
+    static_configs:
+    - targets: ['anchor_host1','anchor_host2', 'anchor_host3']

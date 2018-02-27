@@ -1,0 +1,52 @@
+
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: infra-prom-etcd
+  
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: prom-etcd 
+  namespace: infra-prom-etcd
+  labels:
+    app: prom-etcd
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prom-etcd
+  template:
+    metadata:
+      labels:
+        app: prom-etcd
+    spec:
+      containers:
+        - name: prom-etcd
+          image: prom/prometheus
+          ports:
+          - containerPort: 9090
+          volumeMounts:
+          - name: prometheus
+            mountPath: /etc/prometheus/  
+      volumes:
+        - name: prometheus
+          configMap:
+            name: prometheus
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: prom-etcd
+  namespace: infra-prom-etcd
+spec:
+  ports:
+  - port: 80
+    targetPort: 9090
+    protocol: TCP
+  selector:
+    app: prom-etcd
+
+
