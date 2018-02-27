@@ -1,7 +1,7 @@
 #!/bin/bash
 if [ $# != 6 ]; then
         echo "Usage: $0 /path/key.pem /path/cert.pem /path/ca.pem etcd1-address:port etcd2-address:port etcd3-address:port
-              Example: "
+              Example: bash builder.sh /etc/ssl/etcd/ssl/node-k8s-lab-sk-2-key.pem /etc/ssl/etcd/ssl/node-k8s-lab-sk-2.pem  /etc/ssl/etcd/ssl/ca.pem 10.111.0.19:2379 10.111.0.20:2379 10.111.0.21:2379"
         exit
 fi
 
