@@ -14,9 +14,10 @@ sed -i s/anchor_host1/$4/ prometheus.yml
 sed -i s/anchor_host2/$5/ prometheus.yml
 sed -i s/anchor_host3/$6/ prometheus.yml
 
+kubectl create ns infra-prom-etcd
 kubectl create configmap prometheus --from-file  prometheus.yml --from-file key.pem --from-file cert.pem --from-file ca.pem -n infra-prom-etcd
 sleep 5
-kubectl apply -f prom-etcd.yml
+kubectl create -f prom-etcd.yml
 
 ## return template to original form:
 sed -i s/$4/anchor_host1/ prometheus.yml
